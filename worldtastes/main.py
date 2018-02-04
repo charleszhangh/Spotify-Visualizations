@@ -1,4 +1,6 @@
 """
+Created January 6th, 2018
+Program: Visualizes various countries' music preferences for acousticness, danceability, energy, and valence.
 @author: Charles Zhang
 """
 
@@ -14,17 +16,12 @@ from bokeh.models.annotations import Title
 from os.path import join, dirname
 from bokeh.core.properties import field
 
-#convert data from CSV
-#DIR_INPUT = "C:/Users/cz/Desktop/worldtastes/"
-master_data = pd.read_csv(join(dirname(__file__), 'worldtastes_data.csv'))
-#pd.read_csv("/worldtastes_data.csv",encoding="ISO-8859-1")
-
+master_data = pd.read_csv(join(dirname(__file__), '/Input/worldtastes_data.csv'))
 master_df = pd.DataFrame(master_data)
 
 mask = (master_df['days'] == 1)
 curr_df = master_df[mask]
 curr_df = curr_df.rename(columns = {'valence_avg_10' : 'x', 'energy_avg_10':'y'})
-#print(curr_df)
 
 country_dict = {'Argentina':'ar','Australia':'au','Austria':'at','Belgium':'be','Bolivia':'bo','Brazil':'br','Bulgaria':'bg',
                 'Canada':'ca','Chile':'cl','Colombia':'co','Costa Rica':'cr','Cyprus':'cy',
@@ -164,7 +161,7 @@ def update_data(attrname, old, new):
     new_source = get_dataset(new_df)
     source.data.update(new_source.data)
 
-# creates Sliders
+# creates Sliders and Selectors
 date_slider = Slider(start=1, end=229, value=1, step=1, title="Days")
 
 date_text = Paragraph(text="January 01, 2017", width = 200, height = 10)
@@ -203,7 +200,6 @@ for w in [country_select]:
 
 input_widgets = column(widgetbox(date_text),widgetbox(date_slider, sizing_mode = "scale_width"),
                        widgetbox(x_select),widgetbox(y_select))
-#date_widget = row(widgetbox(date_text),widgetbox(date_slider, sizing_mode = "scale_width"))
 layout = row(input_widgets,plot)
 final_layout = column(desc, layout)
 

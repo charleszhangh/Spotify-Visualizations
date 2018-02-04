@@ -1,9 +1,10 @@
 """
+Created January 6th, 2018
+Program: Visualizes Spotify's Top 200 Viral Charts in listed countries.
 @author: Charles Zhang
 """
 
 from bokeh.io import curdoc, show, output_notebook
-import bokeh
 import datetime
 import pandas as pd
 import math
@@ -50,8 +51,6 @@ def createPlot():
     mask = (master_df['days'] == 1)
     curr_df = master_df[mask]
     curr_df = curr_df.rename(columns = {'valence' : 'x'})
-    #print(curr_df)
-    #desc = Div(text=open("C:/Users/cz/Dropbox/spotify_website/templates/main.html").read(), width=800)
 
     country_dict = {'Argentina':'ar','Australia':'au','Austria':'at','Belgium':'be','Bolivia':'bo','Brazil':'br','Bulgaria':'bg',
                     'Canada':'ca','Chile':'cl','Colombia':'co','Costa Rica':'cr','Cyprus':'cy',
